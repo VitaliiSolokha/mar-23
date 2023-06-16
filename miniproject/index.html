@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+</head>
+<body>
+<h1><span class="Line">List</span></h1>
+<p class="wrap"></p>
+</body>
+<script>
+ fetch(`https://jsonplaceholder.typicode.com/users`)
+   .then((response) => response.json())
+   .then((users) => {
+       let ulElem = document.getElementsByClassName(`wrap`)[0];
+     // document.body.appendChild(ulElem);
+       for (let user of users) {
+           let liElem = document.createElement(`div`);
+           liElem.innerText = `ID - ${user.id} Name - ${user.name} `;
+           ulElem.appendChild(liElem);
+
+           let button = document.createElement(`button`);
+          // btnElem.setAttribute(`id`, user.id);
+           button.innerText = `Link to user `;
+
+
+           liElem.appendChild(button);
+           button.onclick = () => {
+               location.href = `../user-details.html?userId=${user.id}`;
+           }
+       }
+
+       }
+    )
+
+
+</script>
+
+</html>

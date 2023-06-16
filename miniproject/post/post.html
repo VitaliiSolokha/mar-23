@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    h1{
+        background-color: slategray;
+        width: 100%;
+        flex-direction: row;
+        text-align: center;
+        border: 2px solid black;
+        margin: 5px;
+        padding: 5px;
+        border-radius: 10px;
+    }
+    div{
+        background-color: slategrey;
+        border: 3px solid black;
+        margin: 5px;
+        padding: 5px;
+        border-radius: 10px;}
+    p{border: 3px solid black;
+        margin: 5px;
+        border-radius: 10px;
+        background-color: slategrey;
+    }
+
+    body {background-color: darkgrey}
+
+</style>
+<body>
+<h1><span class="Line">Post Info</span></h1>
+<div class="wrap"></div>
+<h1><span class="Lin">Comments</span></h1>
+<p class="comments"></p>
+</body>
+<script>
+    const userId = new URL (location.href).searchParams.get(`userId`)
+    fetch(`https://jsonplaceholder.typicode.com/users/${userId}/posts`)
+        .then((response) => response.json())
+        .then((users) => {
+            const block = document.getElementsByClassName(`wrap`)[0]
+            for (const user of users) {
+                const div = document.createElement(`div`)
+                div.innerText = `Id: ${user.id}
+                Title: ${user.title}
+                Body: ${user.body}
+                 `
+                block.appendChild(div)
+
+                }
+        })
+    fetch(`https://jsonplaceholder.typicode.com/posts/${userId}/comments`)
+        .then((response) => response.json())
+        .then((comments) => {
+            const blockEl = document.getElementsByClassName(`comments`)[0]
+            for (const comment of comments) {
+                const div1 = document.createElement(`div1`)
+                div1.innerText = `Id:${comment.id}
+                Name:${comment.name}
+                Email:${comment.email}
+               Body: ${comment.body}
+
+                 `
+                blockEl.appendChild(div1)
+            }
+        })
+</script>
+</html>

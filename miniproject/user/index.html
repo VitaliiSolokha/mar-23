@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    h1{
+        background-color: slategray;
+        width: 100%;
+        flex-direction: row;
+        text-align: center;
+        border: 2px solid black;
+        margin: 5px;
+        padding: 5px;
+        border-radius: 10px;
+        align-content: center;
+    }
+    div{
+        background-color: slategrey;
+        border: 3px solid black;
+        margin: 5px;
+        padding: 5px;
+        border-radius: 10px;}
+    p{border: 3px solid black;
+        margin: 5px;
+        border-radius: 10px;
+        background-color: slategrey;
+    }
+    body {background-color: darkgrey}
+</style>
+<body>
+<h1><span class="Line">Details</span></h1>
+<p class="wrap"></p>
+</body>
+<script>
+  const userId = new URL (location.href).searchParams.get(`userId`)
+  fetch(`https://jsonplaceholder.typicode.com/users/${userId}`)
+          .then((response) => response.json())
+          .then((user) => {
+            const block = document.getElementsByClassName(`wrap`)[0]
+            const div = document.createElement(`h4`);
+
+            div.innerText = `
+          id: ${user.id}
+          name: ${user.name}
+          username: ${user.username}
+          email: ${user.email}
+          address:
+          street:  ${user.address.street}
+          suite: ${user.address.suite}
+          city: ${user.address.city}
+          zipcode: ${user.address.zipcode}
+          geo:
+          lat: ${user.address.geo.lat}
+          lng: ${user.address.geo.lng}
+          phone: ${user.phone}
+          website: ${user.website}
+          company:
+          name: ${user.company.name}
+          catchPhrase: ${user.company.catchPhrase}
+          bs: ${user.company.bs}
+          `
+            block.appendChild(div);
+
+            const button = document.createElement(`button`)
+            // btnElem.setAttribute(`id`,user.id);
+            button.innerText = `post of current user`
+            block.appendChild(button)
+            button.onclick = () => {
+              location.href = `../user/main.html?userId=${user.id}`
+            }
+
+          })
+
+</script>
+</html>
